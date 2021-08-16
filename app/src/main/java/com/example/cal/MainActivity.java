@@ -27,7 +27,7 @@ import com.example.cal.R;
 public class MainActivity extends Activity {
 
     /**
-     * 연/월 텍스트뷰
+     * 연/월 텍스트뷰123
      */
     private TextView tvDate;
     /**
