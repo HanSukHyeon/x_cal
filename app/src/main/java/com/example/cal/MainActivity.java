@@ -10,7 +10,13 @@ import java.util.Locale;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -66,6 +72,7 @@ public class MainActivity extends Activity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         initWidgets();
         loadFromDBToMemory();
@@ -355,4 +362,18 @@ public class MainActivity extends Activity {
         return dayList;
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+
 }
+
+
+
+
+
+
+

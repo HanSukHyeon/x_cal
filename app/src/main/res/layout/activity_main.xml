@@ -32,6 +32,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="이전"
+            android:textStyle="bold"
+            android:background="@color/white"
+            android:textColor="@color/black"
             android:textSize="10sp"
             android:layout_weight="1"/>
         <TextView
@@ -39,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:background="#49F2C0"
+            android:background="#FFFFFF"
             android:layout_weight="3"
             android:gravity="center"
             android:paddingLeft="10dp"
@@ -52,49 +55,56 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:background="@color/white"
             android:text="이후"
             android:textSize="10sp"/>
 
     </LinearLayout>
 
 
-        <GridView
-            android:id="@+id/gridview"
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:listSelector="@color/purple_200"
-            android:numColumns="7">
+    <GridView
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_weight="1"
+        android:listSelector="@color/black"
+        android:numColumns="7"
+        android:horizontalSpacing="1dp"
+        android:verticalSpacing="1dp"
+        >
 
-        </GridView>
+    </GridView>
 
-            <androidx.appcompat.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/teal_200"
+                android:layout_height="35dp"
+                android:background="@color/white"
                 android:minHeight="?actionBarSize"
                 android:theme="?actionBarTheme">
 
+
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="left"
-                    android:text="기억해라잉"
-                    android:textColor="@color/black"
-                    android:textSize="30dp"
-                    android:textStyle="bold" />
+                    android:text="To do List"
+                    android:textColor="#78B4F4"
+                    android:textSize="25dp"
+                    android:textStyle="italic" />
 
                 <Button
                     android:id="@+id/btn_move"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_gravity="end"
-                    android:background="@color/teal_200"
+                    android:background="@color/white"
                     android:onClick="newNote"
                     android:text="+"
-                    android:textColor="@color/white"
-                    android:textSize="30dp"
+                    android:textColor="#78B4F4"
+                    android:textSize="20dp"
                     android:textStyle="bold">
                 </Button>
 
