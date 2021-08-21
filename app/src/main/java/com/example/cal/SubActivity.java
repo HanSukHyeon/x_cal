@@ -35,14 +35,14 @@ public class SubActivity extends AppCompatActivity {
         dateButton.setText(getTodaysDate());
     }
 
-
+    // 각 텍스트 뷰 선언
     private void initWidgets() {
         titleEditText = findViewById(R.id.titleEditText);
         descEditText = findViewById(R.id.descriptionEditText);
         deleteButton = findViewById(R.id.deleteNoteButton);
     }
 
-
+    //note수정
     private void checkForEditNote() {
         Intent previousIntent = getIntent();
 
@@ -59,7 +59,7 @@ public class SubActivity extends AppCompatActivity {
             deleteButton.setVisibility(View.INVISIBLE);
         }
     }
-
+    //note 저장
     public void saveNote(View view) {
         SQLiteManager sqLiteManager = SQLiteManager.instanceOFDatabase(this);
         String title = String.valueOf(titleEditText.getText());
@@ -91,8 +91,9 @@ public class SubActivity extends AppCompatActivity {
         int month = cal.get(Calendar.MONTH);
         month = month + 1;
         int day = cal.get(Calendar.DAY_OF_MONTH);
-        return makeDateString(day,month,year );
+        return makeDateString(day,month,year);
     }
+
     private  void initDatePicker()
     {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener()

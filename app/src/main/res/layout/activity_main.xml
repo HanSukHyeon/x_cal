@@ -110,17 +110,17 @@
 
             </androidx.appcompat.widget.Toolbar>
 
-        <ListView
-            android:id="@+id/noteListView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:divider="@color/black"
-            android:dividerHeight="3dp">
+    <ListView
+        android:id="@+id/noteListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:divider="@color/black"
+        android:dividerHeight="3dp">
 
-        </ListView>
+    </ListView>
 
-        <HorizontalScrollView
+    <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
