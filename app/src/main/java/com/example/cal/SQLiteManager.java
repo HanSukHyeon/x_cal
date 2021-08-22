@@ -29,6 +29,7 @@ public class SQLiteManager extends SQLiteOpenHelper
     private static final String ID_FIELD = "id";
     private static final String TITLE_FIELD = "title";
     private static final String DESC_FIELD = "desc";
+    private static final String DAYS_FIELD = "days";
     private static final String DELETED_FIELD = "deleted";
 
     private static final DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
@@ -62,6 +63,8 @@ public class SQLiteManager extends SQLiteOpenHelper
                 .append(" TEXT, ")
                 .append(DESC_FIELD)
                 .append(" TEXT, ")
+                .append(DAYS_FIELD)
+                .append(" TEXT, ")
                 .append(DELETED_FIELD)
                 .append(" TEXT)");
 
@@ -88,6 +91,7 @@ public class SQLiteManager extends SQLiteOpenHelper
         ContentValues contentValues = new ContentValues();
         contentValues.put(ID_FIELD, note.getId());
         contentValues.put(TITLE_FIELD, note.getTitle());
+        contentValues.put(DAYS_FIELD,note.getDay_sc());
         contentValues.put(DESC_FIELD, note.getDescription());
         contentValues.put(DELETED_FIELD, getStringFromDate(note.getDeleted()));
 
@@ -107,9 +111,10 @@ public class SQLiteManager extends SQLiteOpenHelper
                     int id = result.getInt(1);
                     String title = result.getString(2);
                     String desc = result.getString(3);
-                    String stringDeleted = result.getString(4);
+                    String days = result.getString(4);
+                    String stringDeleted = result.getString(5);
                     Date deleted = getDateFromString(stringDeleted);
-                    Note note = new Note(id,title,desc,deleted);
+                    Note note = new Note(id,title,desc,days,deleted);
                     Note.noteArrayList.add(note);
                 }
             }
@@ -123,6 +128,7 @@ public class SQLiteManager extends SQLiteOpenHelper
         contentValues.put(ID_FIELD, note.getId());
         contentValues.put(TITLE_FIELD, note.getTitle());
         contentValues.put(DESC_FIELD,note.getDescription());
+        contentValues.put(DAYS_FIELD,note.getDay_sc());
         contentValues.put(DELETED_FIELD, getStringFromDate(note.getDeleted()));
 
         sqLiteDatabase.update(TABLE_NAME, contentValues, ID_FIELD + " =? ", new String[]{String.valueOf(note.getId())});

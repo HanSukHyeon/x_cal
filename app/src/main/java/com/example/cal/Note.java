@@ -11,21 +11,24 @@ public class Note
     private int id;
     private String title;
     private String description;
+    private String day_sc;
     private Date deleted;
 
-    public Note(int id, String title, String description, Date deleted)
+    public Note(int id, String title, String description,String day_sc, Date deleted)
     {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.day_sc=day_sc;
         this.deleted = deleted;
     }
 
-    public Note(int id, String title, String description)
+    public Note(int id, String title, String description,String day_sc)
     {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.day_sc=day_sc;
         deleted = null;
     }
 
@@ -83,5 +86,13 @@ public class Note
 
     public void setDeleted(Date deleted) {
         this.deleted = deleted;
+    }
+
+    public String getDay_sc() {
+        return day_sc;
+    }
+
+    public void setDay_sc(String day_sc) {
+        this.day_sc = day_sc;
     }
 }

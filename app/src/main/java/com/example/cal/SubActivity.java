@@ -31,7 +31,7 @@ public class SubActivity extends AppCompatActivity {
         initWidgets();
         checkForEditNote();
         initDatePicker();
-        dateButton = findViewById(R.id.datePicerButton);
+        //날짜데이터 받아오기 test
         dateButton.setText(getTodaysDate());
     }
 
@@ -39,6 +39,7 @@ public class SubActivity extends AppCompatActivity {
     private void initWidgets() {
         titleEditText = findViewById(R.id.titleEditText);
         descEditText = findViewById(R.id.descriptionEditText);
+        dateButton = findViewById(R.id.datePicerButton);
         deleteButton = findViewById(R.id.deleteNoteButton);
     }
 
@@ -53,6 +54,8 @@ public class SubActivity extends AppCompatActivity {
         {
             titleEditText.setText(selectedNote.getTitle());
             descEditText.setText(selectedNote.getDescription());
+            dateButton.setText(selectedNote.getDay_sc());
+
         }
         else
         {
@@ -61,21 +64,23 @@ public class SubActivity extends AppCompatActivity {
     }
     //note 저장
     public void saveNote(View view) {
-        SQLiteManager sqLiteManager = SQLiteManager.instanceOFDatabase(this);
+        //SQLiteManager sqLiteManager = SQLiteManager.instanceOFDatabase(this);
         String title = String.valueOf(titleEditText.getText());
         String desc = String.valueOf(descEditText.getText());
+        String days = String.valueOf(dateButton.getText());
 
         if (selectedNote == null)
         {
             int id = Note.noteArrayList.size();
-            Note newNote = new Note(id, title, desc);
+            Note newNote = new Note(id, title, desc,days);
             Note.noteArrayList.add(newNote);
-            sqLiteManager.addNoteTODatabase(newNote);
+           // sqLiteManager.addNoteTODatabase(newNote);
 
         } else {
             selectedNote.setTitle(title);
             selectedNote.setDescription(desc);
-            sqLiteManager.updateNoteInDB(selectedNote);
+            selectedNote.setDay_sc(days);
+           // sqLiteManager.updateNoteInDB(selectedNote);
         }
 
         finish();
@@ -163,8 +168,8 @@ public class SubActivity extends AppCompatActivity {
     public void deleteNote(View view)
     {
         selectedNote.setDeleted(new Date());
-        SQLiteManager sqLiteManager = SQLiteManager.instanceOFDatabase(this);
-        sqLiteManager.updateNoteInDB(selectedNote);
+       // SQLiteManager sqLiteManager = SQLiteManager.instanceOFDatabase(this);
+       // sqLiteManager.updateNoteInDB(selectedNote);
         finish();
     }
 }

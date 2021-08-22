@@ -75,7 +75,7 @@ public class MainActivity extends Activity {
 
 
         initWidgets();
-        loadFromDBToMemory();
+       // loadFromDBToMemory();
         setNoteAdapter();
         setOnClickListener();
 

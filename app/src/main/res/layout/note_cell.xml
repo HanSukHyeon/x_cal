@@ -1,19 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="15dp"
-    android:layout_height="100dp">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="1dp">
 
     <TextView
         android:id="@+id/cellTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="일정"
-        android:textStyle="bold"
         android:maxLines="1"
+        android:text="일정"
         android:textColor="@color/darkGray"
-        android:textSize="25sp">
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/celldays"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:text="날짜"
+        android:textColor="@color/darkGray"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cellTitle"
+        app:layout_constraintTop_toTopOf="parent">
 
     </TextView>
 
@@ -21,12 +41,15 @@
         android:id="@+id/celldescTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="세부사항"
-       android:textStyle="bold"
         android:maxLines="1"
-        android:layout_marginTop="5dp"
+        android:text="세부사항"
         android:textColor="@color/darkGray"
-        android:textSize="20sp">
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cellTitle">
 
     </TextView>
 
