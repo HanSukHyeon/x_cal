@@ -56,7 +56,9 @@ public class MainActivity extends Activity {
      */
     private Calendar mCal;
     private Button btn_move;
-    private ListView noteListView;
+
+    //note list view 선언
+   private ListView noteListView;
 
     //연,월,일을 따로 저장
     final SimpleDateFormat curYearFormat = new SimpleDateFormat("yyyy", Locale.KOREA);
@@ -200,6 +202,7 @@ public class MainActivity extends Activity {
     }
 
 
+    //note list view와 note adapter 설정
     private void initWidgets()
     {
         noteListView = findViewById(R.id.noteListView);
@@ -207,7 +210,7 @@ public class MainActivity extends Activity {
 
     private void setNoteAdapter()
     {
-        NoteAdapter noteAdapter = new NoteAdapter(getApplicationContext(),Note.nonDeletedNotes());
+        NoteAdapter noteAdapter = new NoteAdapter(getApplicationContext(),Note.noteArrayList);
         noteListView.setAdapter((noteAdapter));
     }
 
