@@ -293,14 +293,16 @@ public class MainActivity extends Activity {
 
             ViewHolder holder = null;
 
-            if (convertView == null) {
+            if (convertView == null)
+            {
                 convertView = inflater.inflate(R.layout.item_calendar_gridview, parent, false);
                 holder = new ViewHolder();
 
                 holder.tvItemGridView = (TextView)convertView.findViewById(R.id.tv_item_gridview);
 
                 convertView.setTag(holder);
-            } else {
+            }
+            else {
                 holder = (ViewHolder)convertView.getTag();
             }
             holder.tvItemGridView.setText("" + getItem(position));
@@ -309,9 +311,10 @@ public class MainActivity extends Activity {
             mCal = Calendar.getInstance();
             //오늘 day 가져옴
             Integer today = mCal.get(Calendar.DAY_OF_MONTH);
+            Integer today_month = mCal.get(Calendar.MONTH);
             String sToday = String.valueOf(today);
-            if (sToday.equals(getItem(position))) { //오늘 day 텍스트 컬러 변경
-                holder.tvItemGridView.setTextColor(getResources().getColor(R.color.black));
+            if (sToday.equals(getItem(position))&&next_level==0) { //오늘 day 텍스트 컬러 변경
+                holder.tvItemGridView.setTextColor(getResources().getColor(R.color.purple_200));
             }
             return convertView;
         }
