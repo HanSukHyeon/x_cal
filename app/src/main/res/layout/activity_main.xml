@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
         android:layout_weight="1"
-        android:listSelector="@color/black"
+        android:listSelector="#A9EFA7"
         android:numColumns="7"
         android:horizontalSpacing="1dp"
         android:verticalSpacing="1dp"
