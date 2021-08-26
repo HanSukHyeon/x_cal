@@ -13,9 +13,10 @@
         android:gravity="center_horizontal"
         android:textSize="20sp" />
 
-<ListView
-    android:id="@+id/list_todo"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/teal_200"/>
+    <TextView
+        android:id="@+id/tv_todo_gridview"
+        android:backgroundTint="@color/red"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

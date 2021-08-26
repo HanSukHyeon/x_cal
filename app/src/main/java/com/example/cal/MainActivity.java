@@ -38,6 +38,7 @@ public class MainActivity extends Activity {
      * 일 저장 할 리스트
      */
     private ArrayList<String> dayList;
+    private ArrayList<String> TodoList;
 
     /**
      * 그리드뷰
@@ -99,6 +100,7 @@ public class MainActivity extends Activity {
 
         //gridview 요일 표시
         dayList = new ArrayList<String>();
+        TodoList = new ArrayList<String>();
         dayList.add("일");
         dayList.add("월");
         dayList.add("화");
@@ -111,10 +113,11 @@ public class MainActivity extends Activity {
 
         //날짜 배치
         dayList=setCalendar_day(dayList,mCal,date);
+        TodoList=setCalendar_day_todo(TodoList,mCal,date);
 
         setCalendarDate(mCal.get(Calendar.MONTH) + 1);
 
-        gridAdapter = new GridAdapter(getApplicationContext(), dayList);
+        gridAdapter = new GridAdapter(getApplicationContext(), dayList, TodoList);
         gridView.setAdapter(gridAdapter);
 
         btn_next.setOnClickListener(new OnClickListener() {
@@ -142,10 +145,11 @@ public class MainActivity extends Activity {
 
                 //날짜 배치
                 dayList=setCalendar_day_i(dayList,mCal,date,next_level);
+                TodoList=setCalendar_day_i_todo(TodoList,mCal,date,next_level);
                 setCalendarDate(mCal.get(Calendar.MONTH) + 1);
 
 
-                gridAdapter = new GridAdapter(getApplicationContext(), dayList);
+                gridAdapter = new GridAdapter(getApplicationContext(), dayList, TodoList);
                 gridView.setAdapter(gridAdapter);
 
             }
@@ -175,10 +179,11 @@ public class MainActivity extends Activity {
 
                 //날짜 배치
                 dayList=setCalendar_day_i(dayList,mCal,date,next_level);
+                TodoList=setCalendar_day_i_todo(TodoList,mCal,date,next_level);
                 setCalendarDate(mCal.get(Calendar.MONTH) + 1);
 
 
-                gridAdapter = new GridAdapter(getApplicationContext(), dayList);
+                gridAdapter = new GridAdapter(getApplicationContext(), dayList, TodoList);
                 gridView.setAdapter(gridAdapter);
 
             }
@@ -244,6 +249,7 @@ public class MainActivity extends Activity {
 
         for (int i = 0; i < mCal.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
             dayList.add("" + (i + 1));
+            TodoList.add("");
         }
 
     }
@@ -255,18 +261,21 @@ public class MainActivity extends Activity {
     private class GridAdapter extends BaseAdapter {
 
         private final List<String> list;
+        private final List<String> Todolist;
 
         private final LayoutInflater inflater;
 
         /**
          * 생성자
-         *
-         * @param context
+         *  @param context
          * @param list
+         * @param Todolist
          */
-        public GridAdapter(Context context, List<String> list) {
+        public GridAdapter(Context context, List<String> list, List<String> Todolist) {
             this.list = list;
+            this.Todolist = Todolist;
             this.inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
         }
 
         @Override
@@ -277,6 +286,10 @@ public class MainActivity extends Activity {
         @Override
         public String getItem(int position) {
             return list.get(position);
+        }
+
+        public String getTodolist(int position) {
+            return Todolist.get(position);
         }
 
         @Override
@@ -295,6 +308,7 @@ public class MainActivity extends Activity {
                 holder = new ViewHolder();
 
                 holder.tvItemGridView = (TextView)convertView.findViewById(R.id.tv_item_gridview);
+                holder.tvtodogridview=(TextView)convertView.findViewById(R.id.tv_todo_gridview);
 
                 convertView.setTag(holder);
             }
@@ -302,6 +316,7 @@ public class MainActivity extends Activity {
                 holder = (ViewHolder)convertView.getTag();
             }
             holder.tvItemGridView.setText("" + getItem(position));
+            holder.tvtodogridview.setText("" + getTodolist(position));
 
             //해당 날짜 텍스트 컬러,배경 변경
             mCal = Calendar.getInstance();
@@ -318,6 +333,7 @@ public class MainActivity extends Activity {
 
     private class ViewHolder {
         TextView tvItemGridView;
+        TextView tvtodogridview;
     }
 
     //gridview 요일 표시
@@ -343,12 +359,39 @@ public class MainActivity extends Activity {
         //1일 - 요일 매칭 시키기 위해 공백 add
         for (int i = 1; i < dayNum; i++) {
             dayList.add("");
+
         }
 
         return dayList;
     }
 
     public ArrayList<String> setCalendar_day_i(ArrayList<String> dayList,Calendar mCal,Date date,int j) {
+
+        //1일 무슨요일인지 판단 mCal.set(Year,Month,Day)
+        mCal.set(Integer.parseInt(curYearFormat.format(date)), Integer.parseInt(curMonthFormat.format(date))+j-1 , 1);
+        int dayNum = mCal.get(Calendar.DAY_OF_WEEK);
+        //1일 - 요일 매칭 시키기 위해 공백 add
+        for (int i = 1; i < dayNum; i++) {
+            dayList.add("");
+        }
+
+        return dayList;
+    }
+
+    public ArrayList<String> setCalendar_day_todo(ArrayList<String> dayList,Calendar mCal,Date date) {
+
+        //이번달 1일 무슨요일인지 판단 mCal.set(Year,Month,Day)
+        mCal.set(Integer.parseInt(curYearFormat.format(date)), Integer.parseInt(curMonthFormat.format(date))-1 , 1);
+        int dayNum = mCal.get(Calendar.DAY_OF_WEEK);
+        //1일 - 요일 매칭 시키기 위해 공백 add
+        for (int i = 1; i < dayNum+7; i++) {
+            dayList.add("");
+        }
+
+        return dayList;
+    }
+
+    public ArrayList<String> setCalendar_day_i_todo(ArrayList<String> dayList,Calendar mCal,Date date,int j) {
 
         //1일 무슨요일인지 판단 mCal.set(Year,Month,Day)
         mCal.set(Integer.parseInt(curYearFormat.format(date)), Integer.parseInt(curMonthFormat.format(date))+j-1 , 1);
