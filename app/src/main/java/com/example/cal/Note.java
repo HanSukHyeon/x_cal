@@ -95,4 +95,5 @@ public class Note
     public void setDay_sc(String day_sc) {
         this.day_sc = day_sc;
     }
+
 }

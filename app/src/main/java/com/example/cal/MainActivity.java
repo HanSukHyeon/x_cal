@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -50,6 +51,7 @@ public class MainActivity extends Activity {
      */
     private Calendar mCal;
     private Button btn_move;
+    Note test;
 
     //note list view 선언
    private ListView noteListView;
@@ -209,6 +211,10 @@ public class MainActivity extends Activity {
     private void setNoteAdapter()
     {
         NoteAdapter noteAdapter = new NoteAdapter(getApplicationContext(),Note.noteArrayList);
+        if(Note.noteArrayList.iterator().hasNext()) {
+            test = (Note) Note.noteArrayList.get(Note.noteArrayList.size()-1);
+
+        }
         noteListView.setAdapter((noteAdapter));
     }
 
@@ -238,6 +244,8 @@ public class MainActivity extends Activity {
     {
         super .onResume();
         setNoteAdapter();
+        set_todo_incal(TodoList);
+
     }
     /**
      * 해당 월에 표시할 일 수 구함
@@ -253,6 +261,17 @@ public class MainActivity extends Activity {
         }
 
     }
+    private ArrayList<String> set_todo_incal(ArrayList<String> TodoList) {
+       if(test!=null) {
+           int todo_day = Integer.parseInt(test.getDay_sc().toString().substring(4,6));
+           String todo_title=test.getTitle().toString();
+
+           TodoList.set(todo_day+6,todo_title);
+
+       }
+       return TodoList;
+    }
+
 
     /**
      * 그리드뷰 어댑터
@@ -326,6 +345,9 @@ public class MainActivity extends Activity {
             String sToday = String.valueOf(today);
             if (sToday.equals(getItem(position))&&next_level==0) { //오늘 day 텍스트 컬러 변경
                 holder.tvItemGridView.setTextColor(getResources().getColor(R.color.purple_200));
+            }
+            if(getTodolist(position)!=""){
+                holder.tvtodogridview.setBackgroundColor(getResources().getColor(R.color.teal_700));
             }
             return convertView;
         }
@@ -428,6 +450,12 @@ public class MainActivity extends Activity {
 
     }
 
+    public ArrayList<String> TodoList_set(ArrayList<String> TodoList){
+
+
+        return TodoList;
+
+    }
 
 }
 
