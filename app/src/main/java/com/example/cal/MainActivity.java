@@ -130,16 +130,21 @@ public class MainActivity extends Activity {
                 // year을 올려주기위한 if문
                 if((Integer.parseInt(curMonthFormat.format(date))+next_level)%12==0)
                 {
-                    int year_num=(Integer.parseInt(curMonthFormat.format(date))+next_level)/12;
+                    int year_num=-1+(Integer.parseInt(curMonthFormat.format(date))+next_level)/12;
                     tvDate.setText((Integer.parseInt(curYearFormat.format(date))+year_num) + "/" + 12);
                 }
                 else if((Integer.parseInt(curMonthFormat.format(date))+next_level)>12){
                     int year_num=(Integer.parseInt(curMonthFormat.format(date))+next_level)/12;
                     tvDate.setText((Integer.parseInt(curYearFormat.format(date))+year_num) + "/" + (Integer.parseInt(curMonthFormat.format(date))+next_level)%12);
                 }
-                else
+                else if((Integer.parseInt(curMonthFormat.format(date))+next_level)>0)
                 {
                     tvDate.setText(curYearFormat.format(date) + "/" + (Integer.parseInt(curMonthFormat.format(date))+next_level));
+                }
+                else
+                {
+                    int year_num=-1+(Integer.parseInt(curMonthFormat.format(date))+next_level)/12;
+                    tvDate.setText((Integer.parseInt(curYearFormat.format(date))+year_num) + "/" + (12+(Integer.parseInt(curMonthFormat.format(date))+next_level)%12));
                 }
 
                 dayList= setCalendar_yo(dayList);
@@ -164,17 +169,23 @@ public class MainActivity extends Activity {
                 // year을 올려주기위한 if문
                 if((Integer.parseInt(curMonthFormat.format(date))+next_level)%12==0)
                 {
-                    int year_num=(Integer.parseInt(curMonthFormat.format(date))+next_level)/12;
+                    int year_num=-1+(Integer.parseInt(curMonthFormat.format(date))+next_level)/12;
                     tvDate.setText((Integer.parseInt(curYearFormat.format(date))+year_num) + "/" + 12);
                 }
                 else if((Integer.parseInt(curMonthFormat.format(date))+next_level)>12){
                     int year_num=(Integer.parseInt(curMonthFormat.format(date))+next_level)/12;
                     tvDate.setText((Integer.parseInt(curYearFormat.format(date))+year_num) + "/" + (Integer.parseInt(curMonthFormat.format(date))+next_level)%12);
                 }
-                else
+                else if((Integer.parseInt(curMonthFormat.format(date))+next_level)>0)
                 {
                     tvDate.setText(curYearFormat.format(date) + "/" + (Integer.parseInt(curMonthFormat.format(date))+next_level));
                 }
+                else
+                {
+                    int year_num=-1+(Integer.parseInt(curMonthFormat.format(date))+next_level)/12;
+                    tvDate.setText((Integer.parseInt(curYearFormat.format(date))+year_num) + "/" + (12+(Integer.parseInt(curMonthFormat.format(date))+next_level)%12));
+                }
+
 
                 dayList= setCalendar_yo(dayList);
 
@@ -264,6 +275,7 @@ public class MainActivity extends Activity {
     private ArrayList<String> set_todo_incal(ArrayList<String> TodoList) {
        if(test!=null) {
            int todo_day = Integer.parseInt(test.getDay_sc().toString().substring(4,6));
+           int todo_year = Integer.parseInt(test.getDay_sc().toString().substring(7,11));
            String todo_title=test.getTitle().toString();
 
            TodoList.set(todo_day+6,todo_title);
