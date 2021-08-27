@@ -52,6 +52,10 @@ public class MainActivity extends Activity {
     private Calendar mCal;
     private Button btn_move;
     Note test;
+    int todo_day;
+    int todo_month;
+    int month_page;
+
 
     //note list view 선언
    private ListView noteListView;
@@ -73,7 +77,7 @@ public class MainActivity extends Activity {
 
 
         initWidgets();
-       // loadFromDBToMemory();
+        loadFromDBToMemory();
         setNoteAdapter();
         setOnClickListener();
 
@@ -113,6 +117,7 @@ public class MainActivity extends Activity {
 
         mCal = Calendar.getInstance();
 
+        month_page=(Integer.parseInt(curMonthFormat.format(date))+next_level)%12;
         //날짜 배치
         dayList=setCalendar_day(dayList,mCal,date);
         TodoList=setCalendar_day_todo(TodoList,mCal,date);
@@ -126,35 +131,43 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 next_level++;
+
+
                 dayList.clear();
+                TodoList.clear();
                 // year을 올려주기위한 if문
                 if((Integer.parseInt(curMonthFormat.format(date))+next_level)%12==0)
                 {
+                    month_page=12;
                     int year_num=-1+(Integer.parseInt(curMonthFormat.format(date))+next_level)/12;
-                    tvDate.setText((Integer.parseInt(curYearFormat.format(date))+year_num) + "/" + 12);
+                    tvDate.setText((Integer.parseInt(curYearFormat.format(date))+year_num) + "/" + month_page);
                 }
                 else if((Integer.parseInt(curMonthFormat.format(date))+next_level)>12){
+                    month_page=(Integer.parseInt(curMonthFormat.format(date))+next_level)%12;
                     int year_num=(Integer.parseInt(curMonthFormat.format(date))+next_level)/12;
-                    tvDate.setText((Integer.parseInt(curYearFormat.format(date))+year_num) + "/" + (Integer.parseInt(curMonthFormat.format(date))+next_level)%12);
+                    tvDate.setText((Integer.parseInt(curYearFormat.format(date))+year_num) + "/" + month_page);
                 }
                 else if((Integer.parseInt(curMonthFormat.format(date))+next_level)>0)
                 {
-                    tvDate.setText(curYearFormat.format(date) + "/" + (Integer.parseInt(curMonthFormat.format(date))+next_level));
+                    month_page=(Integer.parseInt(curMonthFormat.format(date))+next_level);
+                    tvDate.setText(curYearFormat.format(date) + "/" + month_page);
                 }
                 else
                 {
+                    month_page=(12+(Integer.parseInt(curMonthFormat.format(date))+next_level)%12);
                     int year_num=-1+(Integer.parseInt(curMonthFormat.format(date))+next_level)/12;
-                    tvDate.setText((Integer.parseInt(curYearFormat.format(date))+year_num) + "/" + (12+(Integer.parseInt(curMonthFormat.format(date))+next_level)%12));
+                    tvDate.setText((Integer.parseInt(curYearFormat.format(date))+year_num) + "/" +month_page);
                 }
 
                 dayList= setCalendar_yo(dayList);
+
 
 
                 //날짜 배치
                 dayList=setCalendar_day_i(dayList,mCal,date,next_level);
                 TodoList=setCalendar_day_i_todo(TodoList,mCal,date,next_level);
                 setCalendarDate(mCal.get(Calendar.MONTH) + 1);
-
+                TodoList=set_todo_incal(TodoList);
 
                 gridAdapter = new GridAdapter(getApplicationContext(), dayList, TodoList);
                 gridView.setAdapter(gridAdapter);
@@ -166,24 +179,29 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 next_level--;
                 dayList.clear();
+                TodoList.clear();
                 // year을 올려주기위한 if문
                 if((Integer.parseInt(curMonthFormat.format(date))+next_level)%12==0)
                 {
+                    month_page=12;
                     int year_num=-1+(Integer.parseInt(curMonthFormat.format(date))+next_level)/12;
-                    tvDate.setText((Integer.parseInt(curYearFormat.format(date))+year_num) + "/" + 12);
+                    tvDate.setText((Integer.parseInt(curYearFormat.format(date))+year_num) + "/" + month_page);
                 }
                 else if((Integer.parseInt(curMonthFormat.format(date))+next_level)>12){
+                    month_page=(Integer.parseInt(curMonthFormat.format(date))+next_level)%12;
                     int year_num=(Integer.parseInt(curMonthFormat.format(date))+next_level)/12;
-                    tvDate.setText((Integer.parseInt(curYearFormat.format(date))+year_num) + "/" + (Integer.parseInt(curMonthFormat.format(date))+next_level)%12);
+                    tvDate.setText((Integer.parseInt(curYearFormat.format(date))+year_num) + "/" + month_page);
                 }
                 else if((Integer.parseInt(curMonthFormat.format(date))+next_level)>0)
                 {
-                    tvDate.setText(curYearFormat.format(date) + "/" + (Integer.parseInt(curMonthFormat.format(date))+next_level));
+                    month_page=(Integer.parseInt(curMonthFormat.format(date))+next_level);
+                    tvDate.setText(curYearFormat.format(date) + "/" + month_page);
                 }
                 else
                 {
+                    month_page=(12+(Integer.parseInt(curMonthFormat.format(date))+next_level)%12);
                     int year_num=-1+(Integer.parseInt(curMonthFormat.format(date))+next_level)/12;
-                    tvDate.setText((Integer.parseInt(curYearFormat.format(date))+year_num) + "/" + (12+(Integer.parseInt(curMonthFormat.format(date))+next_level)%12));
+                    tvDate.setText((Integer.parseInt(curYearFormat.format(date))+year_num) + "/" + month_page);
                 }
 
 
@@ -194,7 +212,7 @@ public class MainActivity extends Activity {
                 dayList=setCalendar_day_i(dayList,mCal,date,next_level);
                 TodoList=setCalendar_day_i_todo(TodoList,mCal,date,next_level);
                 setCalendarDate(mCal.get(Calendar.MONTH) + 1);
-
+                TodoList=set_todo_incal(TodoList);
 
                 gridAdapter = new GridAdapter(getApplicationContext(), dayList, TodoList);
                 gridView.setAdapter(gridAdapter);
@@ -224,7 +242,6 @@ public class MainActivity extends Activity {
         NoteAdapter noteAdapter = new NoteAdapter(getApplicationContext(),Note.noteArrayList);
         if(Note.noteArrayList.iterator().hasNext()) {
             test = (Note) Note.noteArrayList.get(Note.noteArrayList.size()-1);
-
         }
         noteListView.setAdapter((noteAdapter));
     }
@@ -273,14 +290,31 @@ public class MainActivity extends Activity {
 
     }
     private ArrayList<String> set_todo_incal(ArrayList<String> TodoList) {
-       if(test!=null) {
-           int todo_day = Integer.parseInt(test.getDay_sc().toString().substring(4,6));
-           int todo_year = Integer.parseInt(test.getDay_sc().toString().substring(7,11));
-           String todo_title=test.getTitle().toString();
 
-           TodoList.set(todo_day+6,todo_title);
 
-       }
+
+    if (test != null) {
+        try {
+            todo_day = Integer.parseInt(test.getDay_sc().toString().substring(4, 6));
+        } catch (Exception e) {
+            todo_day = Integer.parseInt(test.getDay_sc().toString().substring(3, 5));
+        }
+
+        try {
+            todo_month = Integer.parseInt(test.getDay_sc().toString().substring(0, 2));
+        } catch (NumberFormatException e) {
+            todo_month = Integer.parseInt(test.getDay_sc().toString().substring(0, 1));
+        }
+
+
+        String todo_title = test.getTitle().toString();
+
+        if (todo_month == month_page) {
+            TodoList.set(todo_day + 6, todo_title);
+        }
+
+    }
+
        return TodoList;
     }
 
@@ -357,9 +391,11 @@ public class MainActivity extends Activity {
             String sToday = String.valueOf(today);
             if (sToday.equals(getItem(position))&&next_level==0) { //오늘 day 텍스트 컬러 변경
                 holder.tvItemGridView.setTextColor(getResources().getColor(R.color.purple_200));
-            }
-            if(getTodolist(position)!=""){
-                holder.tvtodogridview.setBackgroundColor(getResources().getColor(R.color.teal_700));
+            }else{}
+            if(getTodolist(position)!=""&&todo_month==month_page){
+                holder.tvtodogridview.setBackgroundColor(getResources().getColor(R.color.design_default_color_secondary));
+            }else {
+
             }
             return convertView;
         }
@@ -431,7 +467,7 @@ public class MainActivity extends Activity {
         mCal.set(Integer.parseInt(curYearFormat.format(date)), Integer.parseInt(curMonthFormat.format(date))+j-1 , 1);
         int dayNum = mCal.get(Calendar.DAY_OF_WEEK);
         //1일 - 요일 매칭 시키기 위해 공백 add
-        for (int i = 1; i < dayNum; i++) {
+        for (int i = 1; i < dayNum+7; i++) {
             dayList.add("");
         }
 

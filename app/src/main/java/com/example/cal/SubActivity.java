@@ -64,7 +64,7 @@ public class SubActivity extends AppCompatActivity {
     }
     //note 저장
     public void saveNote(View view) {
-        //SQLiteManager sqLiteManager = SQLiteManager.instanceOFDatabase(this);
+        SQLiteManager sqLiteManager = SQLiteManager.instanceOFDatabase(this);
         String title = String.valueOf(titleEditText.getText());
         String desc = String.valueOf(descEditText.getText());
         String days = String.valueOf(dateButton.getText());
@@ -74,13 +74,13 @@ public class SubActivity extends AppCompatActivity {
             int id = Note.noteArrayList.size();
             Note newNote = new Note(id, title, desc,days);
             Note.noteArrayList.add(newNote);
-           // sqLiteManager.addNoteTODatabase(newNote);
+            sqLiteManager.addNoteTODatabase(newNote);
 
         } else {
             selectedNote.setTitle(title);
             selectedNote.setDescription(desc);
             selectedNote.setDay_sc(days);
-           // sqLiteManager.updateNoteInDB(selectedNote);
+            sqLiteManager.updateNoteInDB(selectedNote);
         }
 
         finish();
@@ -124,7 +124,7 @@ public class SubActivity extends AppCompatActivity {
     private String makeDateString(int day, int month, int year)
 
     {
-    return getMonthFormat(month) + " " + day + " " + year;
+    return month +" "+"월" + day + "일" + year+"년";
 
     }
 
@@ -168,8 +168,8 @@ public class SubActivity extends AppCompatActivity {
     public void deleteNote(View view)
     {
         selectedNote.setDeleted(new Date());
-       // SQLiteManager sqLiteManager = SQLiteManager.instanceOFDatabase(this);
-       // sqLiteManager.updateNoteInDB(selectedNote);
+        SQLiteManager sqLiteManager = SQLiteManager.instanceOFDatabase(this);
+        sqLiteManager.updateNoteInDB(selectedNote);
         finish();
     }
 }
